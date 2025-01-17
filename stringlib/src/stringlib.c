@@ -7,8 +7,8 @@
 #include <ctype.h>
 
 
-#define INITIAL_STRING_LENGTH 200
-
+#define INITIAL_STRING_LENGTH       200
+#define INITIAL_STRING_ARRAY_LENGTH 100
 
 
 
@@ -96,6 +96,74 @@ void string_release(String* ar)
 		free(ar);
 	}
 }
+
+
+StringArray* string_array_new()
+{
+	StringArray* ar = (StringArray*)malloc(sizeof(StringArray));
+	ar->Items = (String**)malloc(sizeof(String*) * INITIAL_STRING_ARRAY_LENGTH);
+	ar->Count = 0;
+	ar->MaxCount = INITIAL_STRING_ARRAY_LENGTH;
+	return ar;
+}
+
+void string_array_add(StringArray* _this, String* content)
+{
+	if (_this)
+	{
+		if (_this->Count >= _this->MaxCount)
+		{
+			_this->MaxCount *= 2;
+			size_t nsz = sizeof(String*) * _this->MaxCount;
+			String** items = (String**)realloc(_this->Items, nsz);
+			if (!items) assert(0);
+			_this->Items = items;
+		}
+
+		_this->Items[_this->Count] = content;
+		_this->Count++;
+	}
+}
+
+StringArray* string_array_release(StringArray* ar)
+{
+	if (ar != 0)
+	{
+		int ix = 0;
+		while (ix < ar->Count)
+		{
+			String* a = ar->Items[ix];
+			string_release(a);
+			ix++;
+		}
+
+		free(ar->Items);
+		free(ar);
+	}
+	return ar;
+}
+
+
+StringArray* string_split(const char* content, const int length, const char* token, const int token_length)
+{
+	StringArray* array = string_array_new();
+	int pos = -1;
+	int ix = 0;
+	while (ix < length)
+	{
+		pos = string_index_of(content, length, token, token_length, ix);
+
+		if (pos >= 0)
+		{
+			String* str = string_sub_new(content, length, ix, (pos - ix));
+			string_array_add(array, str);
+		}
+		else break;
+		ix = pos + token_length;
+	}
+	return array;
+}
+
 
 char* string_to_upper_copy_achar(const char* content)
 {

@@ -20,6 +20,15 @@ typedef struct _String
 String;
 
 
+typedef struct _StringArray
+{
+	int MaxCount;
+	int Count;
+	String** Items;
+}
+StringArray;
+
+
 
 
 PLATFORM_API void           string_init(String* ni);
@@ -52,6 +61,10 @@ PLATFORM_API inline int     string_index_of_char(const char* data, const int dat
 PLATFORM_API inline int     string_index_end_char(const char* data, const char token);
 PLATFORM_API inline int     string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start);
 PLATFORM_API inline int     string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position);
+PLATFORM_API StringArray*   string_array_new();
+PLATFORM_API void           string_array_add(StringArray* _this, String* content);
+PLATFORM_API StringArray*   string_array_release(StringArray* ar);
+PLATFORM_API StringArray*   string_split(const char* content, const int length, const char* token, const int token_length);
 
 
 
