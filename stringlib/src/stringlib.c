@@ -164,6 +164,25 @@ StringArray* string_split(const char* content, const int length, const char* tok
 	return array;
 }
 
+StringArray* string_split_first_char(const char* content, const int length, const char* token, const int token_length)
+{
+	StringArray* array = string_array_new();
+	int pos = -1;
+	int ix = 0;
+	while (ix < length)
+	{
+		int p = string_index_first(content, length, token, token_length, ix, &pos);
+		if (p >= 0)
+		{
+			String* str = string_sub_new(content, length, ix, (pos - ix));
+			string_array_add(array, str);
+			ix = pos + 1;
+		}
+		else break;
+	}
+	return array;
+}
+
 
 char* string_to_upper_copy_achar(const char* content)
 {
@@ -245,6 +264,45 @@ int string_with_content(String* _this)
 		ix++;
 	}
 	return 0;
+}
+
+
+void string_trim_end_by_first_char(String* _this, const char* token)
+{
+	int e = strlen(token);
+
+	if (_this->Length > 0)
+	{
+		int ax = 0;
+		int ix = _this->Length;
+		while (ix > 0)
+		{
+			ix--;
+
+			ax = 0;
+			while (ax < e)
+			{
+				if (_this->Data[ix] == token[ax])
+				{
+					ax = -1;
+					break;
+				}
+				ax++;
+			}
+
+			if (ax >= 0)
+			{
+				ix++;
+				break;
+			}
+		}
+
+		if (ix < _this->Length)
+		{
+			_this->Length = ix;
+			_this->Data[_this->Length] = 0;
+		}
+	}
 }
 
 void string_trim(String* _this)
