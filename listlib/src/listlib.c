@@ -5,7 +5,10 @@
 
 #define INITIAL_LIST_LENGTH 100
 
+void list_release(List* _this)
+{
 
+}
 
 List* list_create(int item_size)
 {
