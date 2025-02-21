@@ -62,6 +62,7 @@ PLATFORM_API inline int     string_index_end_char(const char* data, const char t
 PLATFORM_API inline int     string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start);
 PLATFORM_API inline int     string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position);
 PLATFORM_API StringArray*   string_array_new();
+PLATFORM_API void           string_array_init(StringArray* ar);
 PLATFORM_API void           string_array_add(StringArray* _this, String* content);
 PLATFORM_API StringArray*   string_array_release(StringArray* ar);
 PLATFORM_API StringArray*   string_split(const char* content, const int length, const char* token, const int token_length);

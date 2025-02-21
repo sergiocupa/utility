@@ -98,12 +98,18 @@ void string_release(String* ar)
 }
 
 
-StringArray* string_array_new()
+void string_array_init(StringArray* ar)
 {
-	StringArray* ar = (StringArray*)malloc(sizeof(StringArray));
 	ar->Items = (String**)malloc(sizeof(String*) * INITIAL_STRING_ARRAY_LENGTH);
 	ar->Count = 0;
 	ar->MaxCount = INITIAL_STRING_ARRAY_LENGTH;
+	return ar;
+}
+
+StringArray* string_array_new()
+{
+	StringArray* ar = (StringArray*)malloc(sizeof(StringArray));
+	string_array_init(ar);
 	return ar;
 }
 
