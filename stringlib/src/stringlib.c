@@ -131,7 +131,7 @@ void string_array_add(StringArray* _this, String* content)
 	}
 }
 
-StringArray* string_array_release(StringArray* ar)
+StringArray* string_array_release(StringArray* ar, bool only_data)
 {
 	if (ar != 0)
 	{
@@ -144,7 +144,11 @@ StringArray* string_array_release(StringArray* ar)
 		}
 
 		free(ar->Items);
-		free(ar);
+
+		if (!only_data)
+		{
+			free(ar);
+		}
 	}
 	return ar;
 }
