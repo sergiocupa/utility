@@ -97,6 +97,13 @@ void string_release(String* ar)
 	}
 }
 
+void string_populate(String* source, String* dest)
+{
+	dest->Data      = source->Data;
+	dest->Length    = source->Length;
+	dest->MaxLength = source->MaxLength;
+}
+
 
 void string_array_init(StringArray* ar)
 {

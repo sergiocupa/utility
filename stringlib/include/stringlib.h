@@ -39,6 +39,7 @@ PLATFORM_API String*        string_copy(String* _this);
 PLATFORM_API String*        string_new_length(int max_length);
 PLATFORM_API void           string_release_data(String* ar);
 PLATFORM_API void           string_release(String* ar);
+PLATFORM_API void           string_populate(String* source, String* dest);
 PLATFORM_API char*          string_to_upper_copy_achar(const char* content);
 PLATFORM_API String*        string_to_upper_copy(String* _this);
 PLATFORM_API char*          string_to_lower_copy_achar(const char* content);
