@@ -61,7 +61,7 @@ PLATFORM_API inline int     string_index_of_char(const char* data, const int dat
 PLATFORM_API inline int     string_index_end_char(const char* data, const char token);
 PLATFORM_API inline int     string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start);
 PLATFORM_API inline int     string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position);
-PLATFORM_API inline int     string_index_first_string(const char* data, const int data_length, const int data_start, const String* tokens, const int token_count, int* position);
+PLATFORM_API inline int     string_index_first_string(const char* data, const int data_length, const int data_start, const char** tokens, const int* tokens_length, const int token_count, int* position);
 PLATFORM_API StringArray*   string_array_new();
 PLATFORM_API void           string_array_init(StringArray* ar);
 PLATFORM_API void           string_array_add(StringArray* _this, String* content);
