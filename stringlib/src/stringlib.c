@@ -760,3 +760,36 @@ inline int string_index_first(const char* data, const int data_length, const cha
 	return -1;
 }
 
+inline int string_index_first_string(const char* data, const int data_length, const int data_start, const String* tokens, const int token_count, int* position)
+{
+	int i_token = 0;
+	int i = data_start;
+
+	while (i < data_length)
+	{
+		int j = 0;
+		while (j < token_count)
+		{
+			int p = i;
+			int k = 0;
+			while (k < tokens[j].Length)
+			{
+				if (data[p] != tokens[j].Data[k])
+				{
+					break;
+				}
+				p++;
+				k++;
+			}
+			if (k == tokens[j].Length)
+			{
+				(*position) = i;
+				return j;
+			}
+			j++;
+		}
+		i++;
+	}
+	return -1;
+}
+
