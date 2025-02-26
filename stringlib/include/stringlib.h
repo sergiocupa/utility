@@ -71,6 +71,7 @@ PLATFORM_API StringArray*   string_split(const char* content, const int length, 
 PLATFORM_API void           string_split_param(const char* content, const int length, const char* token, const int token_length, StringArray* array);
 PLATFORM_API StringArray*   string_split_first_char(const char* content, const int length, const char* token, const int token_length);
 PLATFORM_API void           string_trim_end_by_first_char(String* _this, const char* token);
+PLATFORM_API void           string_resize_forward(String* content, int position);
 
 
 

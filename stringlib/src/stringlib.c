@@ -819,3 +819,29 @@ inline int string_index_first_string(const char* data, const int data_length, co
 	return -1;
 }
 
+inline void string_resize_forward(String* content, int position)
+{
+	if (content->MaxLength > 0)
+	{
+		int leng = position < content->Length ? content->Length - position : 0;
+
+		if (leng > 0)
+		{
+			int iz = position;
+			int ix = 0;
+			while (ix < content->Length)
+			{
+				content->Data[ix] = content->Data[iz];
+				ix++;
+				iz++;
+			}
+			content->Data[ix] = 0;
+		}
+		else
+		{
+			content->Length = 0;
+			content->Data[0] = 0;
+		}
+	}
+}
+
