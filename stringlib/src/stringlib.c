@@ -181,6 +181,25 @@ StringArray* string_split(const char* content, const int length, const char* tok
 	return array;
 }
 
+void string_split_param(const char* content, const int length, const char* token, const int token_length, StringArray* array)
+{
+	int pos = -1;
+	int ix = 0;
+	while (ix < length)
+	{
+		pos = string_index_of(content, length, token, token_length, ix);
+
+		if (pos >= 0)
+		{
+			String* str = string_sub_new(content, length, ix, (pos - ix));
+			string_array_add(array, str);
+		}
+		else break;
+		ix = pos + token_length;
+	}
+	return array;
+}
+
 StringArray* string_split_first_char(const char* content, const int length, const char* token, const int token_length)
 {
 	StringArray* array = string_array_new();
