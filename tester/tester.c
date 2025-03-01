@@ -5,10 +5,12 @@
 
 int main()
 {
-	const char* test_split = "POST /api/usuarios HTTP/1.1";
-	int len = strlen(test_split);
+	const char* test_split1 = "POST /api/usuarios  HTTP/1.1 ";
+	const char* test_split2 = " ";
+	const char* test_split3 = "";
+	int len = strlen(test_split1);
 
-	StringArray* parts = string_split(test_split, len, " ", 1);
+	StringArray* parts = string_split(test_split1, len, " ", 1, true);
 
 	if (parts->Count != 3)
 	{
