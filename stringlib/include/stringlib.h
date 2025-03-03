@@ -32,6 +32,7 @@ StringArray;
 
 PLATFORM_API void           string_init(String* ni);
 PLATFORM_API void           string_init_length(String* ni, int max_length);
+PLATFORM_API void           string_init_copy(String* _this, char* data, int length);
 PLATFORM_API void           string_resize(String* _this, int max_length);
 PLATFORM_API String*        string_new();
 PLATFORM_API String*        string_copy(String* _this);

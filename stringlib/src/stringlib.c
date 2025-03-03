@@ -71,6 +71,20 @@ String* string_copy(String* _this)
 	return ar;
 }
 
+void string_init_copy(String* _this, char* data, int length)
+{
+	_this->Length = 0;
+	_this->MaxLength = INITIAL_STRING_LENGTH;
+	_this->Data = (char*)malloc((_this->MaxLength + 1) * sizeof(char));
+	int ix = 0;
+	while (ix < length)
+	{
+		_this->Data[ix] = data[ix];
+		ix++;
+	}
+	_this->Data[ix] = 0;
+}
+
 String* string_new_length(int max_length)
 {
 	String* ar = (String*)malloc(sizeof(String));
