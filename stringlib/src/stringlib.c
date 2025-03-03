@@ -478,9 +478,55 @@ int string_equals_char_range(const char* s1, const char* s2, const int s1_start,
 
 	int ixs = s1_start;
 	int ix = 0;
-	while (ix < leng1 && ixs < end)
+	while (ix < leng2 && ixs < end)
 	{
 		if (s1[ixs] != s2[ix])
+		{
+			return 0;
+		}
+		ix++;
+		ixs++;
+	}
+	return 1;
+}
+
+int string_equals_range(String* s1, const int s1_start, const int s1_count, const char* s2)
+{
+	int leng2 = strlen(s2);
+
+	int end = s1_count >= 0 ? (s1_start + s1_count) : s1->Length;
+	if (end > s1->Length)
+	{
+		end = s1->Length;
+	}
+
+	int ixs = s1_start;
+	int ix = 0;
+	while (ix < leng2 && ixs < end)
+	{
+		if (s1->Data[ixs] != s2[ix])
+		{
+			return 0;
+		}
+		ix++;
+		ixs++;
+	}
+	return 1;
+}
+
+int string_equals_range_s2leng(String* s1, const int s1_start, const int s1_count, const char* s2, const int s2_length)
+{
+	int end = s1_count >= 0 ? (s1_start + s1_count) : s1->Length;
+	if (end > s1->Length)
+	{
+		end = s1->Length;
+	}
+
+	int ixs = s1_start;
+	int ix = 0;
+	while (ix < s2_length && ixs < end)
+	{
+		if (s1->Data[ixs] != s2[ix])
 		{
 			return 0;
 		}

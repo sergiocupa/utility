@@ -19,6 +19,18 @@ int main()
 		return 1;
 	}
 
+
+	const char* TEST_HEADER = "Content-Type: application/json";
+
+	if (string_equals_char_range(TEST_HEADER, "Content-", 0, 8))
+	{
+		if (string_equals_char_range(TEST_HEADER, "Type", 8, 4))
+		{
+			int h = 99;
+		}
+	}
+
+
 	getchar();
 	return 0;
 }
