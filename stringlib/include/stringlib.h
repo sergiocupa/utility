@@ -83,6 +83,8 @@ PLATFORM_API StringArray*   string_split_first_char(const char* content, const i
 PLATFORM_API void           string_trim_end_by_first_char(String* _this, const char* token);
 PLATFORM_API void           string_resize_forward(String* content, int position);
 
+PLATFORM_API int            string_walk_while_match(byte* data, int length, int position, char token);
+
 
 
 

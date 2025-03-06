@@ -799,8 +799,9 @@ inline int string_index_of_char(const char* data, const int data_length, const c
 		real_count = count - ((start + count) - data_length);
 	}
 
+	int end = start + real_count;
 	int i = start;
-	while (i < data_length)
+	while (i < end)
 	{
 		if (data[i] == token)
 		{
@@ -928,5 +929,20 @@ inline void string_resize_forward(String* content, int position)
 			content->Data[0] = 0;
 		}
 	}
+}
+
+
+inline int string_walk_while_match(byte* data, int length, int position, char token)
+{
+	int ix = position;
+	while (ix < length)
+	{
+		if (data[ix] != token)
+		{
+			break;
+		}
+		ix++;
+	}
+	return ix;
 }
 
