@@ -663,7 +663,8 @@ void string_append(String* _this, const char* data)
 	}
 }
 
-String* string_append_format(const char* format, ...)
+
+String* string_write_format(const char* format, ...)
 {
 	va_list ap;
 	char* fstr = NULL;
@@ -680,6 +681,23 @@ String* string_append_format(const char* format, ...)
 	free(fstr);
 	return result;
 }
+
+void string_append_format(String* _this, const char* format, ...)
+{
+	va_list ap;
+	char* fstr = NULL;
+	va_start(ap, format);
+	int len = vsnprintf(NULL, 0, format, ap);
+	va_end(ap);
+	fstr = (char*)malloc(len + 1);
+	va_start(ap, format);
+	if (fstr) vsnprintf(fstr, len + 1, format, ap);
+	va_end(ap);
+
+	string_append(_this, fstr);
+	free(fstr);
+}
+
 
 void string_append_s(String* _this, String* data)
 {

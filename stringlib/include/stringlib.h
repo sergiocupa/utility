@@ -58,7 +58,8 @@ PLATFORM_API int            string_equals_range_s2leng(String* s1, const int s1_
 PLATFORM_API void           string_append_sub(String* _this, const char* data, int data_length, int data_start, int data_count);
 PLATFORM_API void           string_append_char(String* _this, const char data);
 PLATFORM_API void           string_append(String* _this, const char* data);
-PLATFORM_API String*        string_append_format(const char* format, ...);
+PLATFORM_API void           string_append_format(String* _this, const char* format, ...);
+PLATFORM_API String*        string_write_format(const char* format, ...);
 PLATFORM_API inline void    string_append_s(String* _this, String* data);
 
 PLATFORM_API inline void    string_sub(const char* content, const int content_length, const int start, const int count, const int initialize, String* target);
