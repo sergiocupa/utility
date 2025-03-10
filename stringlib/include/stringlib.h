@@ -51,6 +51,7 @@ PLATFORM_API void           string_init_sub(String* _this, const char* data, int
 PLATFORM_API int            string_equals_char_range(const char* s1, const char* s2, const int s1_start, const int s1_count);
 PLATFORM_API int            string_equals_char(const char* s1, const char* s2);
 PLATFORM_API int            string_equals(String* s1, const char* s2);
+PLATFORM_API int            string_equals_s(String* s1, String* s2);
 PLATFORM_API int            string_equals_range(String* s1, const int s1_start, const int s1_count, const char* s2);
 PLATFORM_API int            string_equals_range_s2leng(String* s1, const int s1_start, const int s1_count, const char* s2, const int s2_length);
 

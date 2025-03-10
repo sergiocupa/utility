@@ -574,6 +574,29 @@ int string_equals_char(const char* s1, const char* s2)
 	}
 }
 
+int string_equals_s(String* s1, String* s2)
+{
+	int leng = strlen(s2);
+
+	if (s1->Length == leng)
+	{
+		int ix = 0;
+		while (ix < leng)
+		{
+			if (s1->Data[ix] != s2->Data[ix])
+			{
+				return 0;
+			}
+			ix++;
+		}
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 int string_equals(String* s1, const char* s2)
 {
 	int leng = strlen(s2);
