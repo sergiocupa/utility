@@ -5,6 +5,12 @@
 
 int main()
 {
+	String s1 = { 3,3,"api"};
+	String s2 = { 3,3,"apa" };
+
+	int eq = string_equals_s(&s1,&s2);
+
+
 	const char* test_split1 = "POST /api/usuarios  HTTP/1.1 ";
 	const char* test_split2 = " ";
 	const char* test_split3 = "";
