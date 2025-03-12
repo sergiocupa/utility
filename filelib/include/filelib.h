@@ -8,9 +8,9 @@ extern "C" {
 #include "../../platformlib/include/platform.h"
 
 
-
-PLATFORM_API inline int file_write_text(const char* path_file, char* content, int length);
-PLATFORM_API inline int file_read_text(const char* path_file, char** out, int* out_length);
+PLATFORM_API inline bool file_exists(const char* path);
+PLATFORM_API inline int  file_write_text(const char* path_file, char* content, int length);
+PLATFORM_API inline int  file_read_text(const char* path_file, char** out, int* out_length);
 
 
 

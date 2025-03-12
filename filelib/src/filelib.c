@@ -4,6 +4,52 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+#ifdef PLATFORM_WIN
+    #include <windows.h>
+
+    CRITICAL_SECTION fileCriticalSection;
+
+#else 
+
+    #include <unistd.h>
+    #include <pthread.h>
+    #include <sys/stat.h>
+
+    pthread_mutex_t file_mutex = PTHREAD_MUTEX_INITIALIZER;
+#endif 
+
+
+
+inline bool file_exists(const char* path)
+{
+	bool result = true;
+
+	#ifdef PLATFORM_WIN
+		EnterCriticalSection(&fileCriticalSection);
+
+		DWORD file_attr = GetFileAttributes(path);
+
+		if (file_attr == INVALID_FILE_ATTRIBUTES)
+		{
+			result = (GetLastError() == ERROR_FILE_NOT_FOUND);
+		}
+
+		LeaveCriticalSection(&fileCriticalSection);
+	#else 
+		pthread_mutex_lock(&file_mutex);
+
+		struct stat buffer;
+		int file_exists = (stat(filename, &buffer) == 0);
+
+		pthread_mutex_unlock(&file_mutex);
+
+		return file_exists;
+	#endif 
+	return result;
+}
+
+
+
 
 inline int file_write_text(const char* path_file, char* content, int length)
 {
