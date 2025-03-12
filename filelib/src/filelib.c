@@ -65,6 +65,38 @@ inline int file_write_text(const char* path_file, char* content, int length)
 }
 
 
+inline bool file_read_bin(const char* path_file, byte** out, int* out_length)
+{
+	FILE* file;
+	errno_t fe = fopen_s(&file, path_file, "rb");
+
+	if (fe == 0)
+	{
+		fseek(file, 0, SEEK_END);
+		long leng = ftell(file);
+		fseek(file, 0, SEEK_SET);
+
+		char* o = (char*)malloc(leng);
+		size_t bytesRead = fread(o, 1, leng, file);
+
+		if (bytesRead != leng)
+		{
+			perror("Erro ao ler o arquivo");
+			free(o);
+			fclose(file);
+			return false;
+		}
+
+		fclose(file);
+
+		*out_length = leng;
+		*out = o;
+		return true;
+	}
+	return false;
+}
+
+
 inline int file_read_text(const char* path_file, char** out, int* out_length)
 {
 	FILE* File;
@@ -73,7 +105,6 @@ inline int file_read_text(const char* path_file, char** out, int* out_length)
 	if (fe == 0)
 	{
 		long leng = 0;
-
 		fseek(File, 0, SEEK_END);
 		leng = ftell(File);
 		fseek(File, 0, SEEK_SET);
