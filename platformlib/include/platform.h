@@ -33,8 +33,9 @@ extern "C" {
 
 	#ifdef PLATFORM_WIN
 
-        #include <stdio.h>
+        #define WIN32_LEAN_AND_MEAN
         #include <windows.h>
+        #include <stdio.h>
 
         #pragma section(".CRT$XCU", read)
 	    __declspec(allocate(".CRT$XCU")) static void (*init_ptr)() = platform_init;
