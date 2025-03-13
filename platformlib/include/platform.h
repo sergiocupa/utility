@@ -28,6 +28,31 @@ extern "C" {
 	typedef unsigned int uint;
 
 
+	void platform_init();
+
+
+	#ifdef PLATFORM_WIN
+
+        #include <stdio.h>
+        #include <windows.h>
+
+        #pragma section(".CRT$XCU", read)
+	    __declspec(allocate(".CRT$XCU")) static void (*init_ptr)() = platform_init;
+
+	#else 
+
+        #include <stdio.h>
+
+		__attribute__((constructor)) void my_init() 
+		{
+			platform_init();
+		}
+
+	#endif
+
+
+	
+
 
 #ifdef __cplusplus
 }
