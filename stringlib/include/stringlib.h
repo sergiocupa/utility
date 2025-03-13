@@ -84,8 +84,13 @@ PLATFORM_API StringArray*   string_split_first_char(const char* content, const i
 
 PLATFORM_API void           string_trim_end_by_first_char(String* _this, const char* token);
 PLATFORM_API void           string_resize_forward(String* content, int position);
-
 PLATFORM_API int            string_walk_while_match(byte* data, int length, int position, char token);
+
+PLATFORM_API inline char*   string_http_url_decode_s(const char* src, size_t count, int* out_length);
+PLATFORM_API inline char*   string_http_url_decode(const char* src);
+PLATFORM_API inline char*   string_http_url_encode(const char* src);
+PLATFORM_API inline char*   string_http_url_encode(const char* src);
+PLATFORM_API inline void    string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length);
 
 
 
