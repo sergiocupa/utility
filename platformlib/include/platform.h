@@ -7,16 +7,15 @@ extern "C" {
 
     #include <stdint.h>
 
-	#ifdef _WIN32 || _WIN64
-	    #define PLATFORM_WIN
-	#endif 
+    #if defined(_WIN32) || defined(_WIN64)
+        #define PLATFORM_WIN
+    #endif
 
-
-	#ifdef PLATFORM_WIN
-	    #define PLATFORM_API __declspec ( dllexport )
-	#else 
-	    #define PLATFORM_API
-	#endif 
+    #if defined(PLATFORM_WIN) && !defined(_DEBUG) 
+        #define PLATFORM_API __declspec ( dllexport )
+    #else 
+        #define PLATFORM_API
+    #endif 
 
 
     #define false 0
@@ -28,7 +27,7 @@ extern "C" {
 	typedef unsigned int uint;
 
 
-	void platform_init();
+    PLATFORM_API void platform_init();
 
 
 	#ifdef PLATFORM_WIN

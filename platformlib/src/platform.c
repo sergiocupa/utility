@@ -5,6 +5,8 @@
 #include <assert.h>
 
 
+bool platform_initialized = false;
+
 
 void test_utf8()
 {
@@ -21,5 +23,9 @@ void test_utf8()
 
 void platform_init()
 {
+	if (platform_initialized) return;
+
 	test_utf8();
+
+	platform_initialized = true;
 }
