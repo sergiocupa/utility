@@ -20,7 +20,7 @@
 
 
 
-inline bool file_exists(const char* path)
+bool file_exists(const char* path)
 {
 	bool result = true;
 
@@ -51,7 +51,7 @@ inline bool file_exists(const char* path)
 
 
 
-inline int file_write_text(const char* path_file, char* content, int length)
+int file_write_text(const char* path_file, char* content, int length)
 {
 	FILE* file;
 	errno_t fe = fopen_s(&file, path_file, "w");
@@ -65,7 +65,7 @@ inline int file_write_text(const char* path_file, char* content, int length)
 }
 
 
-inline bool file_read_bin(const char* path_file, byte** out, int* out_length)
+bool file_read_bin(const char* path_file, byte** out, int* out_length)
 {
 	FILE* file;
 	errno_t fe = fopen_s(&file, path_file, "rb");
@@ -97,7 +97,7 @@ inline bool file_read_bin(const char* path_file, byte** out, int* out_length)
 }
 
 
-inline int file_read_text(const char* path_file, char** out, int* out_length)
+int file_read_text(const char* path_file, char** out, int* out_length)
 {
 	FILE* File;
 	errno_t fe = fopen_s(&File, path_file, "r");
