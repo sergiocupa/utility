@@ -4,10 +4,21 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+
+// To-DO: Criar  CRITICAL_SECTION por caminho do arquivo. Por hora sem este recurso
+//        Criar recursos de thread no projeto platform
+
 #ifdef PLATFORM_WIN
     #include <windows.h>
 
-    CRITICAL_SECTION fileCriticalSection;
+   /* CRITICAL_SECTION fileCriticalSection;
+	INIT_ONCE initOnce = INIT_ONCE_STATIC_INIT;
+
+	BOOL CALLBACK InitCriticalSectionOnce(PINIT_ONCE InitOnce, PVOID Parameter, PVOID* Context)
+	{
+		InitializeCriticalSection(&fileCriticalSection);
+		return TRUE;
+	}*/
 
 #else 
 
@@ -25,7 +36,9 @@ bool file_exists(const char* path)
 	bool result = true;
 
 	#ifdef PLATFORM_WIN
-		EnterCriticalSection(&fileCriticalSection);
+
+	    //InitOnceExecuteOnce(&initOnce, InitCriticalSectionOnce, NULL, NULL);
+		//EnterCriticalSection(&fileCriticalSection);
 
 		DWORD file_attr = GetFileAttributes(path);
 
@@ -34,7 +47,7 @@ bool file_exists(const char* path)
 			result = (GetLastError() == ERROR_FILE_NOT_FOUND);
 		}
 
-		LeaveCriticalSection(&fileCriticalSection);
+		//LeaveCriticalSection(&fileCriticalSection);
 	#else 
 		pthread_mutex_lock(&file_mutex);
 

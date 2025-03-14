@@ -1,10 +1,15 @@
 #include "stringlib.h"
+#include "filelib.h"
 #include <stdio.h>
 #include "string.h"
 
 
 int main()
 {
+	const char* file = "E:\\git\\appserver\\x64\\Debug\\api\\service\\img\\solda.jpg";
+
+	bool exist = file_exists(file);
+
 	String s1 = { 3,3,"api"};
 	String s2 = { 3,3,"apa" };
 

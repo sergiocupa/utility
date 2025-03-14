@@ -116,7 +116,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
-      <AdditionalIncludeDirectories>E:\git\libs\utility\stringlib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\git\libs\utility\stringlib\include;E:\git\libs\utility\filelib\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -134,7 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\git\libs\utility\stringlib\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\git\libs\utility\stringlib\include;E:\git\libs\utility\filelib\include</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
@@ -150,6 +150,9 @@
     <ClCompile Include="tester.c" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\filelib\filelib.vcxproj">
+      <Project>{de72c625-92ac-4ffd-af4e-0e52d053fcec}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\platformlib\platformlib.vcxproj">
       <Project>{93283736-9188-424f-bb81-4acfb449b6c2}</Project>
     </ProjectReference>
