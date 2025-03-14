@@ -705,7 +705,7 @@ void string_append_s(String* _this, String* data)
 	}
 }
 
-inline void string_sub(const char* content, const int content_length, const int start, const int count, const int initialize, String* target)
+void string_sub(const char* content, const int content_length, const int start, const int count, const int initialize, String* target)
 {
 	if (count <= 0)
 	{
@@ -781,7 +781,7 @@ inline void string_sub(const char* content, const int content_length, const int 
 }
 
 
-inline String* string_sub_new(const char* content, const int content_length, const int start, const int count)
+String* string_sub_new(const char* content, const int content_length, const int start, const int count)
 {
 	String* nw = string_new();
 	string_sub(content, content_length, start, count, 0, nw);
@@ -830,7 +830,7 @@ int string_token_count(const char* data, const int data_length, const char token
 }
 
 
-inline int string_index_of_char(const char* data, const int data_length, const char token, const int start, const int count)
+int string_index_of_char(const char* data, const int data_length, const char token, const int start, const int count)
 {
 	int real_count = count;
 	if ((start + count) > data_length)
@@ -851,7 +851,7 @@ inline int string_index_of_char(const char* data, const int data_length, const c
 	return -1;
 }
 
-inline int string_index_end_char(const char* data, const char token)
+int string_index_end_char(const char* data, const char token)
 {
 	int i = strlen(data);
 
@@ -867,7 +867,7 @@ inline int string_index_end_char(const char* data, const char token)
 	return -1;
 }
 
-inline int string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start)
+int string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start)
 {
 	int i_token = 0;
 	int i = start;
@@ -890,7 +890,7 @@ inline int string_index_of(const char* data, const int data_length, const char* 
 	return -1;
 }
 
-inline int string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position)
+int string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position)
 {
 	int i_token = 0;
 	int i = start;
@@ -911,7 +911,7 @@ inline int string_index_first(const char* data, const int data_length, const cha
 	return -1;
 }
 
-inline int string_index_first_string(const char* data, const int data_length, const int data_start, const char** tokens, const int* tokens_length, const int token_count, int* position)
+int string_index_first_string(const char* data, const int data_length, const int data_start, const char** tokens, const int* tokens_length, const int token_count, int* position)
 {
 	int i_token = 0;
 	int i = data_start;
@@ -944,7 +944,7 @@ inline int string_index_first_string(const char* data, const int data_length, co
 	return -1;
 }
 
-inline void string_resize_forward(String* content, int position)
+void string_resize_forward(String* content, int position)
 {
 	if (content->MaxLength > 0)
 	{
@@ -971,7 +971,7 @@ inline void string_resize_forward(String* content, int position)
 }
 
 
-inline int string_walk_while_match(byte* data, int length, int position, char token)
+int string_walk_while_match(byte* data, int length, int position, char token)
 {
 	int ix = position;
 	while (ix < length)
@@ -1004,7 +1004,7 @@ static int hex_to_int(char c)
 }
 
 
-inline char* string_http_url_decode(const char* src)
+char* string_http_url_decode(const char* src)
 {
 	char* decoded = malloc(strlen(src) + 1);
 
@@ -1044,7 +1044,7 @@ inline char* string_http_url_decode(const char* src)
 	return decoded;
 }
 
-inline char* string_http_url_decode_s(const char* src, size_t count, int* out_length)
+char* string_http_url_decode_s(const char* src, size_t count, int* out_length)
 {
 	char* decoded = malloc(count + 1);
 
@@ -1088,7 +1088,7 @@ inline char* string_http_url_decode_s(const char* src, size_t count, int* out_le
 }
 
 
-inline char* string_http_url_encode(const char* src)
+char* string_http_url_encode(const char* src)
 {
 	size_t len = strlen(src);
 	char* encoded = malloc(3 * len + 1);
@@ -1117,7 +1117,7 @@ inline char* string_http_url_encode(const char* src)
 	return encoded;
 }
 
-inline void string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length)
+void string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length)
 {
 	*length = strlen(utf8_str);
 	*byte_array = (byte*)malloc(*length);
@@ -1131,7 +1131,7 @@ inline void string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t
 	memcpy(*byte_array, utf8_str, *length);
 }
 
-inline char* string_bytes_to_utf8(byte* byte_array, size_t length)
+char* string_bytes_to_utf8(byte* byte_array, size_t length)
 {
 	char* str = (char*)malloc(length + 1);
 	if (str == NULL)

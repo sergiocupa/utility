@@ -60,18 +60,18 @@ PLATFORM_API void           string_append_char(String* _this, const char data);
 PLATFORM_API void           string_append(String* _this, const char* data);
 PLATFORM_API void           string_append_format(String* _this, const char* format, ...);
 PLATFORM_API String*        string_write_format(const char* format, ...);
-PLATFORM_API inline void    string_append_s(String* _this, String* data);
+PLATFORM_API void           string_append_s(String* _this, String* data);
 
-PLATFORM_API inline void    string_sub(const char* content, const int content_length, const int start, const int count, const int initialize, String* target);
-PLATFORM_API inline String* string_sub_new(const char* content, const int content_length, const int start, const int count);
+PLATFORM_API void           string_sub(const char* content, const int content_length, const int start, const int count, const int initialize, String* target);
+PLATFORM_API String*        string_sub_new(const char* content, const int content_length, const int start, const int count);
 
 PLATFORM_API int            string_token_count(const char* data, const int data_length, const char token, const int start, const int count, int* position);
 
-PLATFORM_API inline int     string_index_of_char(const char* data, const int data_length, const char token, const int start, const int count);
-PLATFORM_API inline int     string_index_end_char(const char* data, const char token);
-PLATFORM_API inline int     string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start);
-PLATFORM_API inline int     string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position);
-PLATFORM_API inline int     string_index_first_string(const char* data, const int data_length, const int data_start, const char** tokens, const int* tokens_length, const int token_count, int* position);
+PLATFORM_API int            string_index_of_char(const char* data, const int data_length, const char token, const int start, const int count);
+PLATFORM_API int            string_index_end_char(const char* data, const char token);
+PLATFORM_API int            string_index_of(const char* data, const int data_length, const char* token, const int token_length, const int start);
+PLATFORM_API int            string_index_first(const char* data, const int data_length, const char* token, const int token_length, const int start, int* position);
+PLATFORM_API int            string_index_first_string(const char* data, const int data_length, const int data_start, const char** tokens, const int* tokens_length, const int token_count, int* position);
 
 PLATFORM_API StringArray*   string_array_new();
 PLATFORM_API void           string_array_init(StringArray* ar);
@@ -86,11 +86,11 @@ PLATFORM_API void           string_trim_end_by_first_char(String* _this, const c
 PLATFORM_API void           string_resize_forward(String* content, int position);
 PLATFORM_API int            string_walk_while_match(byte* data, int length, int position, char token);
 
-PLATFORM_API inline char*   string_http_url_decode_s(const char* src, size_t count, int* out_length);
-PLATFORM_API inline char*   string_http_url_decode(const char* src);
-PLATFORM_API inline char*   string_http_url_encode(const char* src);
-PLATFORM_API inline char*   string_http_url_encode(const char* src);
-PLATFORM_API inline void    string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length);
+PLATFORM_API char*          string_http_url_decode_s(const char* src, size_t count, int* out_length);
+PLATFORM_API char*          string_http_url_decode(const char* src);
+PLATFORM_API char*          string_http_url_encode(const char* src);
+PLATFORM_API char*          string_http_url_encode(const char* src);
+PLATFORM_API void           string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length);
 
 
 
