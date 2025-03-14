@@ -65,7 +65,7 @@ PLATFORM_API inline void    string_append_s(String* _this, String* data);
 PLATFORM_API inline void    string_sub(const char* content, const int content_length, const int start, const int count, const int initialize, String* target);
 PLATFORM_API inline String* string_sub_new(const char* content, const int content_length, const int start, const int count);
 
-PLATFORM_API inline int     string_token_count(const char* data, const int data_length, const char token, const int start, const int count, int* position);
+PLATFORM_API int            string_token_count(const char* data, const int data_length, const char token, const int start, const int count, int* position);
 
 PLATFORM_API inline int     string_index_of_char(const char* data, const int data_length, const char token, const int start, const int count);
 PLATFORM_API inline int     string_index_end_char(const char* data, const char token);

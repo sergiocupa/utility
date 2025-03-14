@@ -789,7 +789,7 @@ inline String* string_sub_new(const char* content, const int content_length, con
 }
 
 
-inline int string_token_count(const char* data, const int data_length, const char token, const int start, const int count, int* position)
+int string_token_count(const char* data, const int data_length, const char token, const int start, const int count, int* position)
 {
 	int real_count = count;
 	if ((start + count) > data_length)
