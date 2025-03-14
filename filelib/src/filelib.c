@@ -33,7 +33,7 @@
 
 bool file_exists(const char* path)
 {
-	bool result = true;
+	bool result = false;
 
 	#ifdef PLATFORM_WIN
 
@@ -44,7 +44,11 @@ bool file_exists(const char* path)
 
 		if (file_attr == INVALID_FILE_ATTRIBUTES)
 		{
-			result = (GetLastError() == ERROR_FILE_NOT_FOUND);
+			result = (GetLastError() != ERROR_FILE_NOT_FOUND);
+		}
+		else
+		{
+			result = true;
 		}
 
 		//LeaveCriticalSection(&fileCriticalSection);
