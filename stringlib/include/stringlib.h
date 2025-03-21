@@ -91,6 +91,8 @@ PLATFORM_API char*          string_http_url_decode(const char* src);
 PLATFORM_API char*          string_http_url_encode(const char* src);
 PLATFORM_API char*          string_http_url_encode(const char* src);
 PLATFORM_API void           string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length);
+PLATFORM_API char*          string_base64_encode(const byte* data, size_t input_length);
+PLATFORM_API byte*          string_base64_decode(const char* data, size_t input_length, size_t* output_length);
 
 
 

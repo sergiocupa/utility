@@ -10,7 +10,8 @@
 #define INITIAL_STRING_LENGTH       200
 #define INITIAL_STRING_ARRAY_LENGTH 100
 
-
+static const char BASE64_TABLE[]     = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+static const int  BASE64_MOD_TABLE[] = { 0, 2, 1 };
 
 
 void string_init(String* ni)
@@ -97,10 +98,12 @@ String* string_new_length(int max_length)
 
 void string_release_data(String* ar)
 {
-	if (ar)
+	if (ar && ar->MaxLength > 0)
 	{
 		free(ar->Data);
 	}
+	ar->MaxLength = 0;
+	ar->Length    = 0;
 }
 void string_release(String* ar)
 {
@@ -1144,4 +1147,84 @@ char* string_bytes_to_utf8(byte* byte_array, size_t length)
 	str[length] = '\0';
 	return str;
 }
+
+char* string_base64_encode(const byte* data, size_t input_length)
+{
+	// Calcula o tamanho da saída Base64 (multiplo de 4)
+	size_t output_length = 4 * ((input_length + 2) / 3);
+
+	// Aloca memória para a string codificada (+1 para o caractere nulo)
+	char* encoded_data = malloc(output_length + 1);
+	if (encoded_data == NULL) return NULL;
+
+	for (size_t i = 0, j = 0; i < input_length;) 
+	{
+		// Lê os próximos três bytes (ou 0 se não houver bytes suficientes)
+		uint32_t octet_a = i < input_length ? data[i++] : 0;
+		uint32_t octet_b = i < input_length ? data[i++] : 0;
+		uint32_t octet_c = i < input_length ? data[i++] : 0;
+
+		// Concatena os três bytes em um inteiro de 24 bits
+		uint32_t triple = (octet_a << 16) | (octet_b << 8) | octet_c;
+
+		// Separa os 24 bits em quatro grupos de 6 bits e mapeia para os caracteres da tabela
+		encoded_data[j++] = BASE64_TABLE[(triple >> 18) & 0x3F];
+		encoded_data[j++] = BASE64_TABLE[(triple >> 12) & 0x3F];
+		encoded_data[j++] = BASE64_TABLE[(triple >> 6) & 0x3F];
+		encoded_data[j++] = BASE64_TABLE[triple & 0x3F];
+	}
+
+	// Adiciona os caracteres '=' de acordo com o tamanho dos dados de entrada
+	for (int i = 0; i < BASE64_MOD_TABLE[input_length % 3]; i++)
+	{
+		encoded_data[output_length - 1 - i] = '=';
+	}
+
+	// Finaliza a string
+	encoded_data[output_length] = '\0';
+	return encoded_data;
+}
+
+byte* string_base64_decode(const char* data, size_t input_length, size_t* output_length) 
+{
+	// A string Base64 deve ter tamanho múltiplo de 4
+	if (input_length % 4 != 0) return NULL;
+
+	// Calcula o tamanho da saída
+	*output_length = input_length / 4 * 3;
+	if (data[input_length - 1] == '=') (*output_length)--;
+	if (data[input_length - 2] == '=') (*output_length)--;
+
+	byte* decoded_data = malloc(*output_length);
+	if (decoded_data == NULL) return NULL;
+
+	// Cria uma tabela de decodificação: inicializa todos os índices com -1
+	int decoding_table[256];
+	for (int i = 0; i < 256; i++) 
+	{
+		decoding_table[i] = -1;
+	}
+	for (int i = 0; i < 64; i++)
+	{
+		decoding_table[(byte)BASE64_TABLE[i]] = i;
+	}
+
+	// Processa a entrada em blocos de 4 caracteres
+	for (size_t i = 0, j = 0; i < input_length;) 
+	{
+		int sextet_a = data[i] == '=' ? 0 : decoding_table[(byte)data[i]]; i++;
+		int sextet_b = data[i] == '=' ? 0 : decoding_table[(byte)data[i]]; i++;
+		int sextet_c = data[i] == '=' ? 0 : decoding_table[(byte)data[i]]; i++;
+		int sextet_d = data[i] == '=' ? 0 : decoding_table[(byte)data[i]]; i++;
+
+		int triple = (sextet_a << 18) | (sextet_b << 12) | (sextet_c << 6) | sextet_d;
+
+		if (j < *output_length) decoded_data[j++] = (triple >> 16) & 0xFF;
+		if (j < *output_length) decoded_data[j++] = (triple >> 8) & 0xFF;
+		if (j < *output_length) decoded_data[j++] = triple & 0xFF;
+	}
+
+	return decoded_data;
+}
+
 
