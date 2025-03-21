@@ -15,7 +15,7 @@ void test_utf8()
 
 	if (leng != 3)
 	{
-		perror("UTF-8 encoding not supported");
+		perror("UTF-8 encoding unsupported");
 		exit(EXIT_FAILURE);
 	}
 }

@@ -1,4 +1,4 @@
-#include "../include/stringlib.h"
+ï»¿#include "../include/stringlib.h"
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -1019,7 +1019,7 @@ char* string_http_url_decode(const char* src)
 	{
 		if (*src == '%')
 		{
-			// Verifica se há pelo menos dois caracteres após '%'
+			// Verifica se hÃ¡ pelo menos dois caracteres apÃ³s '%'
 			if (*(src + 1) && *(src + 2))
 			{
 				int high = hex_to_int(*(src + 1));
@@ -1035,7 +1035,7 @@ char* string_http_url_decode(const char* src)
 		}
 		else if (*src == '+')
 		{
-			// O caractere '+' representa um espaço na URL
+			// O caractere '+' representa um espaÃ§o na URL
 			*dst++ = ' ';
 			src++;
 			continue;
@@ -1072,12 +1072,12 @@ char* string_http_url_decode_s(const char* src, size_t count, int* out_length)
 					continue;
 				}
 			}
-			// Se não for uma sequência válida, copia o '%' literalmente
+			// Se nÃ£o for uma sequÃªncia vÃ¡lida, copia o '%' literalmente
 			decoded[j++] = src[i++];
 		}
 		else if (src[i] == '+')
 		{
-			// O sinal '+' representa um espaço
+			// O sinal '+' representa um espaÃ§o
 			decoded[j++] = ' ';
 			i++;
 		}
@@ -1104,7 +1104,7 @@ char* string_http_url_encode(const char* src)
 		{
 			*dst++ = *src;
 		}
-		// O espaço é convertido para '+'
+		// O espaÃ§o Ã© convertido para '+'
 		else if (*src == ' ')
 		{
 			*dst++ = '+';
@@ -1120,10 +1120,16 @@ char* string_http_url_encode(const char* src)
 	return encoded;
 }
 
-void string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* length)
+byte* string_utf8_to_bytes(const char* utf8_str, size_t* out_length)
 {
-	*length = strlen(utf8_str);
-	*byte_array = (byte*)malloc(*length);
+	if (strlen("è¾“") != 3)
+	{
+		perror("UTF-8 encoding unsupported");
+		exit(EXIT_FAILURE);
+	}
+
+	*out_length      = strlen(utf8_str);
+	byte* byte_array = (byte*)malloc((*out_length)+1);
 
 	if (*byte_array == NULL)
 	{
@@ -1131,7 +1137,9 @@ void string_utf8_to_bytes(const char* utf8_str, byte** byte_array, size_t* lengt
 		exit(EXIT_FAILURE);
 	}
 
-	memcpy(*byte_array, utf8_str, *length);
+	memcpy(byte_array, utf8_str, *out_length);
+	byte_array[*out_length] = 0;
+	return byte_array;
 }
 
 char* string_bytes_to_utf8(byte* byte_array, size_t length)
@@ -1139,7 +1147,7 @@ char* string_bytes_to_utf8(byte* byte_array, size_t length)
 	char* str = (char*)malloc(length + 1);
 	if (str == NULL)
 	{
-		perror("Falha ao alocar memória");
+		perror("Falha ao alocar memÃ³ria");
 		return NULL;
 	}
 
@@ -1150,21 +1158,21 @@ char* string_bytes_to_utf8(byte* byte_array, size_t length)
 
 char* string_base64_encode(const byte* data, size_t input_length)
 {
-	// Calcula o tamanho da saída Base64 (multiplo de 4)
+	// Calcula o tamanho da saÃ­da Base64 (multiplo de 4)
 	size_t output_length = 4 * ((input_length + 2) / 3);
 
-	// Aloca memória para a string codificada (+1 para o caractere nulo)
+	// Aloca memÃ³ria para a string codificada (+1 para o caractere nulo)
 	char* encoded_data = malloc(output_length + 1);
 	if (encoded_data == NULL) return NULL;
 
 	for (size_t i = 0, j = 0; i < input_length;) 
 	{
-		// Lê os próximos três bytes (ou 0 se não houver bytes suficientes)
+		// LÃª os prÃ³ximos trÃªs bytes (ou 0 se nÃ£o houver bytes suficientes)
 		uint32_t octet_a = i < input_length ? data[i++] : 0;
 		uint32_t octet_b = i < input_length ? data[i++] : 0;
 		uint32_t octet_c = i < input_length ? data[i++] : 0;
 
-		// Concatena os três bytes em um inteiro de 24 bits
+		// Concatena os trÃªs bytes em um inteiro de 24 bits
 		uint32_t triple = (octet_a << 16) | (octet_b << 8) | octet_c;
 
 		// Separa os 24 bits em quatro grupos de 6 bits e mapeia para os caracteres da tabela
@@ -1187,18 +1195,18 @@ char* string_base64_encode(const byte* data, size_t input_length)
 
 byte* string_base64_decode(const char* data, size_t input_length, size_t* output_length) 
 {
-	// A string Base64 deve ter tamanho múltiplo de 4
+	// A string Base64 deve ter tamanho mÃºltiplo de 4
 	if (input_length % 4 != 0) return NULL;
 
-	// Calcula o tamanho da saída
+	// Calcula o tamanho da saÃ­da
 	*output_length = input_length / 4 * 3;
 	if (data[input_length - 1] == '=') (*output_length)--;
 	if (data[input_length - 2] == '=') (*output_length)--;
 
-	byte* decoded_data = malloc(*output_length);
+	byte* decoded_data = malloc((*output_length)+1);
 	if (decoded_data == NULL) return NULL;
 
-	// Cria uma tabela de decodificação: inicializa todos os índices com -1
+	// Cria uma tabela de decodificaÃ§Ã£o: inicializa todos os Ã­ndices com -1
 	int decoding_table[256];
 	for (int i = 0; i < 256; i++) 
 	{
@@ -1224,6 +1232,7 @@ byte* string_base64_decode(const char* data, size_t input_length, size_t* output
 		if (j < *output_length) decoded_data[j++] = triple & 0xFF;
 	}
 
+	decoded_data[*output_length] = 0;
 	return decoded_data;
 }
 

@@ -1,7 +1,8 @@
-#include "stringlib.h"
+﻿#include "stringlib.h"
 #include "filelib.h"
 #include <stdio.h>
-#include "string.h"
+#include <string.h>
+#include <shalib.h>
 
 
 int main()
@@ -41,6 +42,24 @@ int main()
 		}
 	}
 
+	const char* utf8_str = "输";
+
+	size_t leng = 0;
+	byte* data = string_utf8_to_bytes(utf8_str, &leng);
+
+	
+	int leee = strlen(utf8_str);
+
+
+	const char* ABC = "Sergio";
+	char* cc = string_base64_encode(ABC, strlen(ABC));
+	int outl = 0;
+	byte* bb = string_base64_decode(cc,strlen(cc),&outl);
+
+	
+
+	unsigned char digest[SHA1_BLOCK_SIZE];
+	sha1((unsigned char*)ABC, strlen(ABC), digest);
 
 	getchar();
 	return 0;

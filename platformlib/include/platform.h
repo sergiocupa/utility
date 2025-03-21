@@ -9,6 +9,7 @@ extern "C" {
 
     #if defined(_WIN32) || defined(_WIN64)
         #define PLATFORM_WIN
+        #pragma execution_character_set("utf-8")
     #endif
 
     #if defined(PLATFORM_WIN) && !defined(_DEBUG) 
