@@ -25,7 +25,8 @@ extern "C" {
 
 	typedef int          bool;
 	typedef uint_fast8_t byte;
-	typedef unsigned int uint;
+    typedef uint32_t     uint;
+    typedef uint64_t     ulong;
 
 
     PLATFORM_API void platform_init();
