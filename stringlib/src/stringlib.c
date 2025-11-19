@@ -84,6 +84,7 @@ void string_init_copy(String* _this, char* data, int length)
 		ix++;
 	}
 	_this->Data[ix] = 0;
+	_this->Length   = length;
 }
 
 String* string_new_length(int max_length)
